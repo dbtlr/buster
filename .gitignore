@@ -2,10 +2,6 @@
 .idea
 vendor/*
 
-# Var paths
-var/log/*
-!var/log/.gitkeep
-
 # Bin scripts
 bin/*
 !bin/verify

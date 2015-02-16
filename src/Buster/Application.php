@@ -49,11 +49,6 @@ class Application extends SilexApplication
      */
     protected function registerLogging()
     {
-        $logFile = $this['path.log'] . '/system.log';
-        if (php_sapi_name() === 'cli-server') {
-            $logFile = 'php://stderr';
-        }
-
-        $this->register(new MonologServiceProvider(), array('monolog.logfile' => $logFile));
+        $this->register(new MonologServiceProvider(), array('monolog.logfile' => 'php://stderr'));
     }
 }
