@@ -3,6 +3,9 @@
 namespace Buster;
 
 use Buster\Provider\JsonResponseProvider;
+use Doctrine\DBAL\Types\Type;
+use Knp\Provider\ConsoleServiceProvider;
+use Knp\Provider\MigrationServiceProvider;
 use Silex\Application as SilexApplication;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
@@ -26,6 +29,7 @@ class Application extends SilexApplication
 
         $this['debug'] = php_sapi_name() === 'cli-server';
 
+        $this->registerConsole();
         $this->registerLogging();
         $this->register(new JsonResponseProvider());
 
@@ -43,6 +47,28 @@ class Application extends SilexApplication
     {
         $this->register(new DoctrineServiceProvider(), array(
             'db.options' => require($this['path.config'] . '/database.php'),
+        ));
+
+        Type::addType('hstore', 'Buster\DBAL\Types\HStoreType');
+
+        /** @var \Doctrine\DBAL\Connection $db */
+        $db = $this['db'];
+        $db->getDatabasePlatform()->registerDoctrineTypeMapping('hstore', 'hstore');
+    }
+
+    /**
+     *
+     */
+    protected function registerConsole()
+    {
+        $this->register(new ConsoleServiceProvider(), array(
+            'console.name'              => 'Buster',
+            'console.version'           => '1.0.0',
+            'console.project_directory' => $this['path.app'],
+        ));
+
+        $this->register(new MigrationServiceProvider(), array(
+            'migration.path' => $this['path.app'] . '/migrations'
         ));
     }
 

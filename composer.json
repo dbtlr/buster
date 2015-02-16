@@ -3,7 +3,9 @@
     "silex/silex": "~1.2",
     "monolog/monolog": "~1.12",
     "twig/twig": "~1.18",
-    "doctrine/dbal": "~2.2"
+    "doctrine/dbal": "~2.2",
+    "knplabs/console-service-provider": "dev-master",
+    "knplabs/migration-service-provider": "dev-master"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*",
