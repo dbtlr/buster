@@ -30,8 +30,7 @@ Add this code into the ```<head>``` tag of your application.
 
 ### Todo
 
-1. Add in a database backend adapter system.
-3. Add in a domain cookie to track unique users.
+1. Fix migrations to do CREATE EXTENSION hstore;
 2. Add in a reporting API to pull data back out.
   1. Report by date range
   2. Report by ip address
