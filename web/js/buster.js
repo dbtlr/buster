@@ -35,7 +35,9 @@ if (typeof(Buster) == 'undefined') {
     Buster.host = function() {
         var location = document.location + '';
 
+        console.log(this.he);
         console.log(location);
+        console.log((this.he && location.toLowerCase().indexOf('https')));
 
         return (this.he && location.toLowerCase().indexOf('https')) ? 'https' : 'http';
     };
@@ -59,8 +61,6 @@ if (typeof(Buster) == 'undefined') {
 
         img.async = true;
         img.src = url;
-
-        console.log(url);
     };
 
     Buster.joinParams = function(params) {
