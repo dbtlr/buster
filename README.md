@@ -27,3 +27,14 @@ Add this code into the ```<head>``` tag of your application.
     })();
 </script>
 ```
+
+### Todo
+
+1. Add in a database backend adapter system.
+3. Add in a domain cookie to track unique users.
+2. Add in a reporting API to pull data back out.
+  1. Report by date range
+  2. Report by ip address
+  3. Report by custom parameter
+  4. Report by identity
+  5. Report outlining highest traffic individuals
