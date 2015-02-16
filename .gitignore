@@ -7,3 +7,4 @@ bin/*
 !bin/verify
 !bin/lint
 !bin/server
+!bin/console

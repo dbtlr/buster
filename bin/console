@@ -1,0 +1,10 @@
+#!/usr/bin/env php
+<?php
+
+set_time_limit(0);
+
+$app = require_once __DIR__ . '/../app/bootstrap.php';
+
+/** @var \Knp\Console\Application $application */
+$application = $app['console'];
+$application->run();
