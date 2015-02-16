@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+bin/lint
+
+echo "Verify PSR-2 compliance..."
+bin/phpcs --standard=PSR2 src
+
+echo "Verifying unit tests..."
+bin/phpunit
+
+exit $?

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+if [ "$1" = "--all" ]
+  then
+    echo "Running PHP lint on all files..."
+    find ./app -type f | grep -E "(\.php|\.phtml)$" | xargs -n1 php -l
+    find ./src -type f | grep -E "(\.php|\.phtml)$" | xargs -n1 php -l
+  else
+    echo "Running PHP lint on changed files..."
+    git diff --cached --name-status | awk '{ if ($1 != "D") print $2}' | grep -E "(\.php|\.phtml)$" | xargs -n1 php -l
+fi
