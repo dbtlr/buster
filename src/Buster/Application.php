@@ -3,6 +3,7 @@
 namespace Buster;
 
 use Buster\Provider\JsonResponseProvider;
+use Monolog\Logger;
 use Silex\Application as SilexApplication;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\TwigServiceProvider;
@@ -31,6 +32,22 @@ class Application extends SilexApplication
         $this->register(new TwigServiceProvider(), array(
             'twig.path' => $this['path.view'],
         ));
+
+        $this->registerDatabase();
+    }
+
+    /**
+     *
+     */
+    protected function registerDatabase()
+    {
+        $url = null;
+
+        if (isset($_ENV['HEROKU_POSTGRESQL_GREEN_URL'])) {
+            $url = $_ENV['HEROKU_POSTGRESQL_GREEN_URL'];
+        }
+
+        $this->log('Url: ' . $url, array(), Logger::DEBUG);
     }
 
     /**
