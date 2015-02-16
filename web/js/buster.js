@@ -35,7 +35,7 @@ if (typeof(Buster) == 'undefined') {
     Buster.host = function() {
         var location = document.location + '';
 
-        return (this.he && location.toLowerCase().indexOf('https') !== 0) ? 'https' : 'http';
+        return (this.he && location.toLowerCase().indexOf('https') === 0) ? 'https' : 'http';
     };
 
     Buster.pageView = function(params) {
