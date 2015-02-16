@@ -3,6 +3,7 @@
 namespace Buster\Model;
 
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\DBAL\Connection;
 
 class Pixel
 {
@@ -122,6 +123,9 @@ class Pixel
         return (array) @json_decode($this->request->query->get('s'), true);
     }
 
+    /**
+     * @return array
+     */
     public function parse()
     {
         return array(
@@ -137,5 +141,13 @@ class Pixel
             'params'      => $this->getParams(),
             'raw'         => $this->request->server->all()
         );
+    }
+
+    /**
+     * @param Connection $db
+     */
+    public function write(Connection $db)
+    {
+
     }
 }
