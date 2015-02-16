@@ -4,6 +4,7 @@ namespace Buster\Model;
 
 use Monolog\Logger;
 use Buster\Application;
+use Rhumsaa\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL\Connection;
 
@@ -13,6 +14,11 @@ class Pixel
      * @var Request
      */
     protected $request;
+
+    /**
+     * @var string
+     */
+    protected $uniqId;
 
     /**
      * @param Request $request
@@ -100,7 +106,15 @@ class Pixel
      */
     public function getUniqId()
     {
-        return '';
+        if ($this->uniqId) {
+            return $this->uniqId;
+        }
+
+        if (!$this->uniqId = $this->request->cookies->get('bstr', null)) {
+            $this->uniqId = Uuid::uuid4()->toString();
+        }
+
+        return $this->uniqId;
     }
 
     /**

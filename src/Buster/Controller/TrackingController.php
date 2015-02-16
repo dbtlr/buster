@@ -5,6 +5,7 @@ namespace Buster\Controller;
 use Buster\Application;
 use Buster\Model\Pixel;
 use Monolog\Logger;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,7 +27,10 @@ class TrackingController
         $pixel->write($app['db'], $app);
 
         $transPixel = base64_decode("R0lGODdhAQABAIAAAPxqbAAAACwAAAAAAQABAAACAkQBADs=");
-        return new Response($transPixel, 200, array('Content-Type' => 'image/gif'));
+        $response = new Response($transPixel, 200, array('Content-Type' => 'image/gif'));
+        $response->headers->setCookie(new Cookie('bstr', $pixel->getUniqId(), new \DateTime('+25 years')));
+
+        return $response;
     }
 
     /**
