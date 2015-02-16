@@ -18,7 +18,7 @@ class HomeController
         $port   = $request->getPort();
         $local  = $request->getHost() == 'localhost';
 
-        if ($local || $port != 80 || $port != 443) {
+        if ($local || ($port != 80 && $port != 443)) {
             $trackDomain .= ':' . $port;
         }
 
