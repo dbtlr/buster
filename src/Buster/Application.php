@@ -3,8 +3,8 @@
 namespace Buster;
 
 use Buster\Provider\JsonResponseProvider;
-use Monolog\Logger;
 use Silex\Application as SilexApplication;
+use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use Buster\Provider\ErrorHandlerProvider;
@@ -41,13 +41,31 @@ class Application extends SilexApplication
      */
     protected function registerDatabase()
     {
-        $url = null;
+        $host     = 'localhost';
+        $port     = '5432';
+        $username = 'buster';
+        $password = '';
+        $dbname   = 'buster';
 
+        $url = null;
+        $parsedUrl = array();
+
+        // USE HEROKU DATABASE CONFIG
         if (isset($_ENV['HEROKU_POSTGRESQL_GREEN_URL'])) {
             $url = $_ENV['HEROKU_POSTGRESQL_GREEN_URL'];
+            $parsedUrl = parse_url($url);
         }
 
-        $this->log('Url: ' . $url, array(), Logger::DEBUG);
+        $this->register(new DoctrineServiceProvider(), array(
+            'db.options' => array(
+                'driver'   => 'pdo_pgsql',
+                'dbname'   => isset($parsedUrl['path']) ? trim($parsedUrl['path'], '/') : $dbname,
+                'host'     => isset($parsedUrl['host']) ? $parsedUrl['host'] : $host,
+                'port'     => isset($parsedUrl['port']) ? $parsedUrl['port'] : $port,
+                'user'     => isset($parsedUrl['user']) ? $parsedUrl['user'] : $username,
+                'password' => isset($parsedUrl['pass']) ? $parsedUrl['pass'] : $password,
+            ),
+        ));
     }
 
     /**

@@ -2,7 +2,8 @@
   "require": {
     "silex/silex": "~1.2",
     "monolog/monolog": "~1.12",
-    "twig/twig": "~1.18"
+    "twig/twig": "~1.18",
+    "doctrine/dbal": "~2.2"
   },
   "require-dev": {
     "heroku/heroku-buildpack-php": "*",
