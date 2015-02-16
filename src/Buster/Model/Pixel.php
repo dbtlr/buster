@@ -2,6 +2,8 @@
 
 namespace Buster\Model;
 
+use Monolog\Logger;
+use Buster\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\DBAL\Connection;
 
@@ -12,6 +14,9 @@ class Pixel
      */
     protected $request;
 
+    /**
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;
@@ -194,9 +199,24 @@ class Pixel
 
     /**
      * @param Connection $db
+     * @param Application $app
      */
-    public function write(Connection $db, $app)
+    public function write(Connection $db, Application $app = null)
     {
+        $data = array(
+            'uniqid' => $this->getUniqId(),
+            'requesttime' => $this->getRequestTime(),
+            'type' => $this->getType(),
+            'identity' => $this->getIdentity(),
+            'domain' => $this->getDomainName(),
+            'url' => $this->getPath(),
+            'referrer' => $this->getReferrer(),
+            'referrerdomain' => $this->getReferrerDomain(),
+            'remoteaddr' => $this->getRemoteAddr(),
+            'useragent' => $this->getUserAgent('raw'),
+            'meta' => $this->getMeta(),
+        );
+
         $qb = $db->createQueryBuilder();
         $qb->insert('tracking')
             ->values(array(
@@ -212,19 +232,11 @@ class Pixel
                 'useragent' => ':useragent',
                 'meta' => ':meta',
             ))
-            ->setParameters(array(
-                'uniqid' => $this->getUniqId(),
-                'requesttime' => $this->getRequestTime(),
-                'type' => $this->getType(),
-                'identity' => $this->getIdentity(),
-                'domain' => $this->getDomainName(),
-                'url' => $this->getPath(),
-                'referrer' => $this->getReferrer(),
-                'referrerdomain' => $this->getReferrerDomain(),
-                'remoteaddr' => $this->getRemoteAddr(),
-                'useragent' => $this->getUserAgent('raw'),
-                'meta' => $this->getMeta(),
-            ));
+            ->setParameters($data);
+
+        if ($app && $app['debug']) {
+            $app->log('Query: ' . $qb->getSQL(), $data, Logger::INFO);
+        }
 
         $qb->execute();
     }
