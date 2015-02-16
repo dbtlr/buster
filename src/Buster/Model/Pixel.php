@@ -26,13 +26,16 @@ class Pixel
     }
 
     /**
+     * @param string|null $key
      * @return array
      */
-    public function getUserAgent()
+    public function getUserAgent($key = null)
     {
-        return array(
+        $ua = array(
             'raw' => $this->request->server->get('HTTP_USER_AGENT'),
         );
+
+        return isset($ua[$key]) ? $ua[$key] : $ua;
     }
 
     /**
@@ -64,7 +67,11 @@ class Pixel
      */
     public function getRequestTime()
     {
-        return $this->request->server->get('REQUEST_TIME');
+        $time = $this->request->server->get('REQUEST_TIME');
+
+        $date = new \DateTime('@' . $time);
+
+        return $date->format('r');
     }
 
     /**
@@ -80,7 +87,23 @@ class Pixel
      */
     public function getLanguage()
     {
+        return '';
+    }
 
+    /**
+     * @return string
+     */
+    public function getUniqId()
+    {
+        return '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getMeta()
+    {
+        return null;
     }
 
     /**
@@ -102,9 +125,35 @@ class Pixel
     /**
      * @return string
      */
+    public function getPath()
+    {
+        return @parse_url($this->request->query->get('dp', $this->getPixelReferrer()), \PHP_URL_PATH);
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->request->query->get('t', 'pageview');
+    }
+
+    /**
+     * @return string
+     */
     public function getReferrer()
     {
-        return $this->request->query->get('r');
+        return $this->request->query->get('r', null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferrerDomain()
+    {
+        $referrer = $this->getReferrer();
+
+        return @parse_url($referrer, \PHP_URL_HOST);
     }
 
     /**
@@ -146,8 +195,37 @@ class Pixel
     /**
      * @param Connection $db
      */
-    public function write(Connection $db)
+    public function write(Connection $db, $app)
     {
+        $qb = $db->createQueryBuilder();
+        $qb->insert('tracking')
+            ->values(array(
+                'uniqid' => ':uniqid',
+                'requesttime' => ':requesttime',
+                'type' => ':type',
+                'identity' => ':identity',
+                'domain' => ':domain',
+                'url' => ':url',
+                'referrer' => ':referrer',
+                'referrerdomain' => ':referrerdomain',
+                'remoteaddr' => ':remoteaddr',
+                'useragent' => ':useragent',
+                'meta' => ':meta',
+            ))
+            ->setParameters(array(
+                'uniqid' => $this->getUniqId(),
+                'requesttime' => $this->getRequestTime(),
+                'type' => $this->getType(),
+                'identity' => $this->getIdentity(),
+                'domain' => $this->getDomainName(),
+                'url' => $this->getPath(),
+                'referrer' => $this->getReferrer(),
+                'referrerdomain' => $this->getReferrerDomain(),
+                'remoteaddr' => $this->getRemoteAddr(),
+                'useragent' => $this->getUserAgent('raw'),
+                'meta' => $this->getMeta(),
+            ));
 
+        $qb->execute();
     }
 }

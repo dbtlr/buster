@@ -39,13 +39,13 @@ if (typeof(Buster) == 'undefined') {
     };
 
     Buster.pageView = function(params) {
-        var url = this.url(params || []);
+        var url = this.url('pageview', params || []);
 
         this.buildImage(url);
     };
 
-    Buster.url = function(params) {
-        return this.host() + '://' + this.td + '/pixel?' + Buster.joinParams(this.pixelParams( params ));
+    Buster.url = function(type, params) {
+        return this.host() + '://' + this.td + '/pixel?' + Buster.joinParams(this.pixelParams(type, params));
     };
 
     Buster.screenSize = function() {
@@ -72,12 +72,14 @@ if (typeof(Buster) == 'undefined') {
         return out.join('&');
     };
 
-    Buster.pixelParams = function(params) {
+    Buster.pixelParams = function(type, params) {
         var pixel = {
+            t: type,
             i: this.id,
             d: this.dn,
             s: this.screenSize(),
-            r: this.referrer()
+            r: this.referrer(),
+            dp: window.location.pathname
         };
 
         for (var i in params) {

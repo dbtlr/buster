@@ -23,7 +23,7 @@ class TrackingController
             $app->log('pixel parsed', $pixel->parse(), Logger::DEBUG);
         }
 
-        $pixel->write($app['db']);
+        $pixel->write($app['db'], $app);
 
         $transPixel = base64_decode("R0lGODdhAQABAIAAAPxqbAAAACwAAAAAAQABAAACAkQBADs=");
         return new Response($transPixel, 200, array('Content-Type' => 'image/gif'));

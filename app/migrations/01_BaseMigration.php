@@ -19,17 +19,17 @@ class BaseMigration extends AbstractMigration
         ));
         $table->setPrimaryKey(array('id'));
 
-        $table->addColumn('uniqId', 'string', array('length' => 36));
+        $table->addColumn('uniqId', 'string', array('length' => 36, 'notnull' => false));
         $table->addColumn('requestTime', 'datetime');
         $table->addColumn('type', 'string', array('length' => 20));
         $table->addColumn('domain', 'string');
-        $table->addColumn('referrer', 'string');
-        $table->addColumn('referrerDomain', 'string');
+        $table->addColumn('referrer', 'string', array('nullable' => true));
+        $table->addColumn('referrerDomain', 'string', array('notnull' => false));
         $table->addColumn('remoteAddr', 'string', array('length' => 15));
-        $table->addColumn('identity', 'string');
+        $table->addColumn('identity', 'string', array('notnull' => false));
         $table->addColumn('url', 'string');
         $table->addColumn('userAgent', 'string');
-        $table->addColumn('meta', 'hstore');
+        $table->addColumn('meta', 'hstore', array('notnull' => false));
     }
 
     public function getMigrationInfo()
