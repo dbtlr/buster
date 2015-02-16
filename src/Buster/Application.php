@@ -23,6 +23,8 @@ class Application extends SilexApplication
     {
         parent::__construct($values);
 
+        $this['debug'] = php_sapi_name() === 'cli-server';
+
         $this->registerLogging();
         $this->register(new JsonResponseProvider());
 

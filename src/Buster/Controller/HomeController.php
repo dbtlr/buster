@@ -22,7 +22,6 @@ class HomeController
             $trackDomain .= ':' . $port;
         }
 
-
         return $app['twig']->render(
             'pixelate.twig',
             array(
