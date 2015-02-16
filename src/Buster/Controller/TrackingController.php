@@ -24,6 +24,7 @@ class TrackingController
         $transPixel = base64_decode("R0lGODdhAQABAIAAAPxqbAAAACwAAAAAAQABAAACAkQBADs=");
         return new Response($transPixel, 200, array('Content-Type' => 'image/gif'));
     }
+
     /**
      * @param Request $request
      * @param Application $app

@@ -35,19 +35,11 @@ class Pixel
     }
 
     /**
-     * @return array
-     */
-    public function getParams()
-    {
-        return $this->request->query->all();
-    }
-
-    /**
      * @return string
      */
     public function getRemoteAddr()
     {
-        return $this->request->server->get('REMOTE_ADDR');
+        return $this->request->getClientIp();
     }
 
     /**
@@ -63,15 +55,7 @@ class Pixel
      */
     public function getHost()
     {
-        return $this->request->server->get('HTTP_HOST');
-    }
-
-    /**
-     * @return string
-     */
-    public function getDomain()
-    {
-        return $this->request->server->get('SERVER_NAME');
+        return $this->request->getHost();
     }
 
     /**
@@ -85,7 +69,7 @@ class Pixel
     /**
      * @return string
      */
-    public function getReferrer()
+    public function getPixelReferrer()
     {
         return $this->request->server->get('HTTP_REFERER');
     }
@@ -101,23 +85,23 @@ class Pixel
     /**
      * @return string
      */
-    public function getUserId()
+    public function getIdentity()
     {
-        return $this->request->query->get('u');
+        return $this->request->query->get('i');
     }
 
     /**
      * @return string
      */
-    public function getKey()
+    public function getDomainName()
     {
-        return $this->request->query->get('k');
+        return $this->request->query->get('d');
     }
 
     /**
      * @return string
      */
-    public function getRouteId()
+    public function getReferrer()
     {
         return $this->request->query->get('r');
     }
@@ -125,7 +109,7 @@ class Pixel
     /**
      * @return string
      */
-    public function getRouteParams()
+    public function getParams()
     {
         return $this->request->query->get('p');
     }
@@ -135,21 +119,21 @@ class Pixel
      */
     public function getScreenSize()
     {
-        return $this->request->query->get('s');
+        return (array) @json_decode($this->request->query->get('s'), true);
     }
 
     public function parse()
     {
         return array(
             'cookies'     => $this->getCookies(),
-            'host'        => $this->getHost(),
             'referrer'    => $this->getReferrer(),
             'userAgent'   => $this->getUserAgent(),
             'language'    => $this->getLanguage(),
             'geo'         => $this->getGeo(),
             'remoteAddr'  => $this->getRemoteAddr(),
-            'domain'      => $this->getDomain(),
+            'domain'      => $this->getDomainName(),
             'requestTime' => $this->getRequestTime(),
+            'screenSize'  => $this->getScreenSize(),
             'params'      => $this->getParams(),
             'raw'         => $this->request->server->all()
         );

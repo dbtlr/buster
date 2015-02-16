@@ -5,8 +5,16 @@
     <title>Buster</title>
     <script type="text/javascript">
         var _bstr = _bstr || [];
-        _bstr.push(['domainName', 'buster.onevest.com']);
-        _bstr.push(['pageview']);
+
+        _bstr.push(['domainName', '{{ domainName }}']);
+        _bstr.push(['trackDomain', '{{ trackDomain }}']);
+        _bstr.push(['identity', '[user id]']);
+
+        {% if httpsOff %}
+            _bstr.push(['disableHttps']);
+        {% endif %}
+
+        _bstr.push(['pageView']);
 
         (function() {
             var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
