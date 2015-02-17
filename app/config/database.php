@@ -3,9 +3,9 @@
 $driver   = 'pdo_pgsql';
 $host     = 'localhost';
 $port     = '5432';
-$username = 'buster';
+$username = 'dbtlr';
 $password = '';
-$dbname   = 'buster';
+$dbname   = 'events';
 
 $url = null;
 $parsedUrl = array();
