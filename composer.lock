@@ -4,8 +4,54 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3b26b4f87b18cfaf6bb36a1642ccb2ed",
+    "hash": "ee535aa2d0529653ec859d440e8d71b1",
     "packages": [
+        {
+            "name": "dbtlr/sliex-doctrine-migrations",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dbtlr/silex-doctrine-migrations.git",
+                "reference": "cce30464118d884ac1a27e7e568fe33f49bf3d39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dbtlr/silex-doctrine-migrations/zipball/cce30464118d884ac1a27e7e568fe33f49bf3d39",
+                "reference": "cce30464118d884ac1a27e7e568fe33f49bf3d39",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.1",
+                "knplabs/console-service-provider": "dev-master",
+                "php": ">=5.3.2",
+                "silex/silex": "*",
+                "symfony/finder": "2.1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dbtlr\\MigrationProvider\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Drew Butler",
+                    "homepage": "http://dbtlr.com"
+                }
+            ],
+            "description": "Doctrine migration service provider for Silex",
+            "homepage": "http://github.com/dbtlr/sliex-doctrine-migrations",
+            "keywords": [
+                "doctrine2",
+                "migration",
+                "silex"
+            ],
+            "time": "2015-02-17 17:43:59"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.3",
@@ -523,51 +569,6 @@
                 "silex"
             ],
             "time": "2013-06-13 12:43:39"
-        },
-        {
-            "name": "knplabs/migration-service-provider",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KnpLabs/MigrationServiceProvider.git",
-                "reference": "1e03d2c3d188c212751577ec7c50906dec55791f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/MigrationServiceProvider/zipball/1e03d2c3d188c212751577ec7c50906dec55791f",
-                "reference": "1e03d2c3d188c212751577ec7c50906dec55791f",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "~2.1",
-                "knplabs/console-service-provider": "dev-master",
-                "php": ">=5.3.2",
-                "symfony/finder": "2.1.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Knp\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "KnpLabs",
-                    "homepage": "http://knplabs.com"
-                }
-            ],
-            "description": "Doctrine migration service provider for Silex",
-            "homepage": "http://knplabs.com",
-            "keywords": [
-                "doctrine2",
-                "migration",
-                "silex"
-            ],
-            "time": "2014-08-19 15:13:06"
         },
         {
             "name": "monolog/monolog",
@@ -2417,7 +2418,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "knplabs/console-service-provider": 20,
-        "knplabs/migration-service-provider": 20
+        "dbtlr/sliex-doctrine-migrations": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

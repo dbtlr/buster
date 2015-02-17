@@ -2,21 +2,22 @@
 
 namespace Migration;
 
-use Knp\Migration\AbstractMigration;
+use Dbtlr\MigrationProvider\Migration\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class BaseMigration extends AbstractMigration
+class Version1424188835AddBaseTrackingTableMigration extends AbstractMigration
 {
     /**
      * @param Schema $schema
      */
-    public function schemaUp(Schema $schema)
+    public function up(Schema $schema)
     {
         $table = $schema->createTable('tracking');
         $table->addColumn('id', 'integer', array(
             'unsigned'      => true,
             'autoincrement' => true
         ));
+
         $table->setPrimaryKey(array('id'));
 
         $table->addColumn('uniqId', 'string', array('length' => 36, 'notnull' => false));
@@ -32,8 +33,19 @@ class BaseMigration extends AbstractMigration
         $table->addColumn('meta', 'hstore', array('notnull' => false));
     }
 
+    /**
+     * @param Schema $schema
+     */
+    public function down(Schema $schema)
+    {
+        $schema->dropTable('tracking');
+    }
+
+    /**
+     * @return string
+     */
     public function getMigrationInfo()
     {
-        return 'Added tracking table';
+        return 'Version 1424188835 - Add base tracking table';
     }
 }

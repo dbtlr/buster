@@ -5,7 +5,7 @@
     "twig/twig": "~1.18",
     "doctrine/dbal": "~2.2",
     "knplabs/console-service-provider": "dev-master",
-    "knplabs/migration-service-provider": "dev-master",
+    "dbtlr/sliex-doctrine-migrations": "dev-master",
     "rhumsaa/uuid": "~2.8"
   },
   "require-dev": {

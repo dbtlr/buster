@@ -5,7 +5,7 @@ namespace Buster;
 use Buster\Provider\JsonResponseProvider;
 use Doctrine\DBAL\Types\Type;
 use Knp\Provider\ConsoleServiceProvider;
-use Knp\Provider\MigrationServiceProvider;
+use Dbtlr\MigrationProvider\Provider\MigrationServiceProvider;
 use Silex\Application as SilexApplication;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
@@ -68,7 +68,7 @@ class Application extends SilexApplication
         ));
 
         $this->register(new MigrationServiceProvider(), array(
-            'migration.path' => $this['path.app'] . '/migrations'
+            'migrations.path' => $this['path.app'] . '/migrations'
         ));
     }
 
