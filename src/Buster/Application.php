@@ -2,9 +2,7 @@
 
 namespace Buster;
 
-use Buster\Provider\JsonResponseProvider;
 use Dbtlr\HStoreProvider\Provider\HStoreServiceProvider;
-use Doctrine\DBAL\Types\Type;
 use Knp\Provider\ConsoleServiceProvider;
 use Dbtlr\MigrationProvider\Provider\MigrationServiceProvider;
 use Silex\Application as SilexApplication;
@@ -32,7 +30,6 @@ class Application extends SilexApplication
 
         $this->registerConsole();
         $this->registerLogging();
-        $this->register(new JsonResponseProvider());
 
         $this->register(new TwigServiceProvider(), array(
             'twig.path' => $this['path.view'],

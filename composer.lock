@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd1141bb591f0392b8cfbcaf7890d09a",
+    "hash": "003141c1540cccf1c9cce0dd3f3e0dab",
     "packages": [
         {
             "name": "dbtlr/database-hstore-provider",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/dbtlr/database-hstore-provider.git",
-                "reference": "017f0e951e5bd1584344db0abfda1cfdb8115dd0"
+                "reference": "246b6310a2c2e91bcc1166c3ce9f5eeb6fe9067b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dbtlr/database-hstore-provider/zipball/017f0e951e5bd1584344db0abfda1cfdb8115dd0",
-                "reference": "017f0e951e5bd1584344db0abfda1cfdb8115dd0",
+                "url": "https://api.github.com/repos/dbtlr/database-hstore-provider/zipball/246b6310a2c2e91bcc1166c3ce9f5eeb6fe9067b",
+                "reference": "246b6310a2c2e91bcc1166c3ce9f5eeb6fe9067b",
                 "shasum": ""
             },
             "require": {
@@ -49,7 +49,7 @@
                 "hstore",
                 "silex"
             ],
-            "time": "2015-02-18 14:05:53"
+            "time": "2015-02-18 14:13:19"
         },
         {
             "name": "dbtlr/silex-doctrine-migrations",

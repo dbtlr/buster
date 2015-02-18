@@ -35,12 +35,13 @@ class TrackingController
 
     /**
      * @param Request $request
+     * @param Application $app
      * @return array
      */
-    public function pixelRawAction(Request $request)
+    public function pixelRawAction(Request $request, Application $app)
     {
         $pixel = new Pixel($request);
 
-        return $pixel->parse();
+        return $app->json($pixel->parse());
     }
 }
