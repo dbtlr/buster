@@ -1,0 +1,6 @@
+#!/bin/bash
+
+psql postgres -c "CREATE USER buster WITH PASSWORD '';"
+psql postgres -c "CREATE DATABASE buster;"
+psql postgres -c "GRANT ALL PRIVILEGES ON DATABASE buster to buster;"
+psql postgres -c "ALTER USER buster WITH SUPERUSER"
