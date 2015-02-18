@@ -6,6 +6,7 @@
     "doctrine/dbal": "~2.2",
     "knplabs/console-service-provider": "dev-master",
     "dbtlr/silex-doctrine-migrations": "dev-master",
+    "dbtlr/database-hstore-provider": "dev-master",
     "rhumsaa/uuid": "~2.8"
   },
   "require-dev": {

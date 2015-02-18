@@ -3,6 +3,7 @@
 namespace Buster;
 
 use Buster\Provider\JsonResponseProvider;
+use Dbtlr\HStoreProvider\Provider\HStoreServiceProvider;
 use Doctrine\DBAL\Types\Type;
 use Knp\Provider\ConsoleServiceProvider;
 use Dbtlr\MigrationProvider\Provider\MigrationServiceProvider;
@@ -49,11 +50,7 @@ class Application extends SilexApplication
             'db.options' => require($this['path.config'] . '/database.php'),
         ));
 
-        Type::addType('hstore', 'Buster\DBAL\Types\HStoreType');
-
-        /** @var \Doctrine\DBAL\Connection $db */
-        $db = $this['db'];
-        $db->getDatabasePlatform()->registerDoctrineTypeMapping('hstore', 'hstore');
+        $this->register(new HStoreServiceProvider());
     }
 
     /**
